@@ -59,7 +59,7 @@ class LoginOption extends Component {
               screen: 'withPhone',
             });
           }}
-          ButtonStyle={{borderColor: myColors.white, borderWidth: 2}}
+          ButtonStyle={{borderColor: myColors.white, borderWidth: 2,padding: 7,}}
           title={lang.loginwithNum}
         />
         <FilledButton

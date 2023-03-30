@@ -28,6 +28,9 @@ import OTPTextView from 'react-native-otp-textinput';
 class VerificationScreen extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      otp: '',
+    };
   }
 
   render() {
@@ -48,7 +51,8 @@ class VerificationScreen extends Component {
               showButton
               headerText={lang.verification}
             />
-            <View style={{marginTop: "30%", alignItems: 'center'}}>
+            
+            <View style={{marginTop: '30%', alignItems: 'center'}}>
               <Image
                 resizeMode="contain"
                 style={{height: hp(25), width: hp(25), marginBottom: hp(2.5)}}
@@ -66,10 +70,13 @@ class VerificationScreen extends Component {
                 {lang.sentto}
                 {'+132 29473943'}
               </Text>
+              
               <OTPTextView
-                // offTintColor={'red'}
-                // tintColor={'green'}
-                // handleTextChange={e => setOTP(e)}
+                handleTextChange={e => {
+                  this.setState({
+                    otp: e,
+                  });
+                }}
                 inputCount={4}
                 inputCellLength={1}
                 containerStyle={{

@@ -41,8 +41,8 @@ export const onboardingStyles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'flex-end',
     marginRight: wp(5),
-    marginBottom:-7
-    // marginTop: hp(1),
+    marginBottom:-7,
+    marginTop: hp(1),
   },
   forgetPassText: {
     fontFamily: HindGuntur.Regular,

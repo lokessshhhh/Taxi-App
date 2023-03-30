@@ -1,6 +1,7 @@
 export const myColors = {
     textinputBG:'#E8F6FF',
     buttonBG:'#457CD6',
+    red:'#FF0000',
     greytext:'#312C2C',
     lightgreyText:"#1F1F25",
     primary: "#8D10B5",

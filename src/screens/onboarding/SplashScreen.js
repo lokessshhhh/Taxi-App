@@ -36,7 +36,7 @@ class SplashScreen extends Component {
   }
 
   changeLanguage = language => {
-    lang.setLanguage('sp');
+    lang.setLanguage('en');
   };
 
   handleButtonPress = () => {

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   View,
   TextInput,
   Image,
   StyleSheet,
   TouchableOpacity,
+  Text
 } from 'react-native';
 import {myColors} from '../../theme/colors';
 import {
@@ -19,22 +20,42 @@ const DoubleInput = ({
   onChangeText,
   pressable,
   onPress,
-  secureTextEntry
+  secureTextEntry,
+  onBlur,
+  maxLength,
+  showLength,
+  phoneLength,
+  InputViewStyle
 }) => {
 
-const [showText,setshowText] = useState(false);
-
   return (
-    <View style={styles.inputContainer}>
+    <View style={[styles.inputContainer]}>
       <TextInput
+        maxLength={maxLength}
+        onBlur={onBlur}
         secureTextEntry={secureTextEntry}
         value={value}
         onChangeText={onChangeText}
         placeholderTextColor={myColors.black}
-        style={styles.input}
+        style={[styles.input,InputViewStyle]}
         placeholder={placeholder}
       />
-      <TouchableOpacity onPress={onPress} disabled={pressable ? false : true}>
+      <TouchableOpacity 
+      style={{flexDirection:'row',alignItems:'center'}}
+      onPress={onPress} disabled={pressable ? false : true}>
+        {showLength ? (
+          <Text
+            style={{
+              alignSelf: 'flex-end',
+              marginRight: wp(5),
+              fontSize: 12,
+              margin: 3,
+              color:myColors.greytext
+            }}
+          >
+            {phoneLength}/10
+          </Text>
+        ) : null}
         <Image resizeMode="contain" source={Icon} style={styles.icon} />
       </TouchableOpacity>
     </View>
@@ -43,7 +64,7 @@ const [showText,setshowText] = useState(false);
 
 const styles = StyleSheet.create({
   inputContainer: {
-    marginBottom: hp(1),
+    marginTop: hp(1),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

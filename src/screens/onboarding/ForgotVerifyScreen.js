@@ -27,6 +27,7 @@ import OTPTextView from 'react-native-otp-textinput';
 class ForgotVerifyScreen extends Component {
   constructor(props) {
     super(props);
+    
   }
 
   render() {

@@ -15,10 +15,9 @@ import CountryPicker from 'react-native-country-picker-modal';
 import {myColors} from '../../theme/colors';
 // import CountryPicker package
 
-const CountryInput = () => {
+const CountryInput = ({onBlur,value,onChangeText,phoneLength}) => {
   const [countryCode, setCountryCode] = useState('US');
   const [countryCodeNum, setCountryCodeNum] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
 
   const onSelectCountry = country => {
     setCountryCode(country.cca2);
@@ -41,13 +40,24 @@ const CountryInput = () => {
         <View style={styles.line} />
       </View>
       <TextInput
+        maxLength={10}
         placeholderTextColor={myColors.black}
         style={styles.input}
         placeholder="Enter mobile number"
         keyboardType="phone-pad"
-        value={phoneNumber}
-        onChangeText={setPhoneNumber}
+        value={value}
+        onChangeText={onChangeText}
+        onBlur={onBlur}
       />
+        <Text
+            style={{
+              marginRight: wp(5),
+              fontSize: 12,
+              color:myColors.greytext
+            }}
+          >
+            {phoneLength}/10
+          </Text>
     </View>
   );
 };
@@ -75,6 +85,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     height: '100%',
+    width:'90%'
   },
 });
 

@@ -23,11 +23,20 @@ import FilledButton from '../../components/onboarding/FilledButton';
 import TextWithButton from '../../components/onboarding/TextButton';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import DoubleInput from '../../components/onboarding/DoubleInput';
+import {Formik} from 'formik';
+import * as Yup from 'yup';
+import {myColors} from '../../theme/colors';
 
 class ForgetPass extends Component {
   constructor(props) {
     super(props);
   }
+
+  validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email('Please Enter Valid Email')
+      .required('Email is required'),
+  });
 
   render() {
     return (
@@ -47,38 +56,71 @@ class ForgetPass extends Component {
               showButton
               headerText={lang.forgetPass}
             />
-            <View style={{marginTop: hp(15), alignItems: 'center'}}>
-              <Image
-                resizeMode="contain"
-                style={{height: hp(25), width: hp(25), marginBottom: hp(5)}}
-                source={Img.forgetpassBG}
-              />
-              <TitleText titleText={lang.forgetPass} />
-              <Text
-                style={onboardingStyles.titleText}
-              >
-                {lang.sendverifyCode}
-              </Text>
-              <DoubleInput placeholder={lang.email} Icon={Img.emailIcon} />
+            <Formik
+              initialValues={{mobile: '', email: '', password: ''}}
+              onSubmit={values => console.log(values)}
+              validationSchema={this.validationSchema}
+            >
+              {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                values,
+                errors,
+                touched,
+                isValid,
+              }) => (
+                <View style={{marginTop: hp(15), alignItems: 'center'}}>
+                  <Image
+                    resizeMode="contain"
+                    style={{height: hp(25), width: hp(25), marginBottom: hp(5)}}
+                    source={Img.forgetpassBG}
+                  />
+                  <TitleText titleText={lang.forgetPass} />
+                  <Text style={onboardingStyles.titleText}>
+                    {lang.sendverifyCode}
+                  </Text>
+                  <DoubleInput
+                    onChangeText={handleChange('email')}
+                    onBlur={handleBlur('email')}
+                    value={values.email}
+                    placeholder={lang.email}
+                    Icon={Img.emailIcon}
+                  />
 
-              <FilledButton
-                onPress={() => {
-                  this.props.navigation.navigate('ForgotVerifyScreen');
-                }}
-                title={lang.sendPass}
-              />
-              <TextWithButton
-                onButtonPress={() => {
-                  this.props.navigation.navigate('LoginScreen');
-                }}
-                textStyle={{fontSize: hp(2.2)}}
-                buttonStyle={{
-                  fontSize: hp(2.2),
-                }}
-                text={lang.alreadyacc}
-                buttonText={` ${lang.login}`}
-              />
-            </View>
+                  {errors.email && touched.email && (
+                    <Text
+                      style={{
+                        color: myColors.red,
+                        marginLeft: wp(5.3),
+                        fontSize: 12.5,
+                        alignSelf: 'flex-start',
+                      }}
+                    >
+                      {errors.email}
+                    </Text>
+                  )}
+                  <FilledButton
+                    onPress={() => {
+                      handleSubmit();
+                      // this.props.navigation.navigate('ForgotVerifyScreen');
+                    }}
+                    title={lang.sendPass}
+                  />
+                  <TextWithButton
+                    onButtonPress={() => {
+                      this.props.navigation.navigate('LoginScreen');
+                    }}
+                    textStyle={{fontSize: hp(2.2)}}
+                    buttonStyle={{
+                      fontSize: hp(2.2),
+                    }}
+                    text={lang.alreadyacc}
+                    buttonText={` ${lang.login}`}
+                  />
+                </View>
+              )}
+            </Formik>
           </ImageBackground>
         </KeyboardAwareScrollView>
       </SafeAreaView>
